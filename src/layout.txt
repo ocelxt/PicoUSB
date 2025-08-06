@@ -19,3 +19,4 @@ layout(CRO)
 # SW - Sweden
 # TR - Turkey
 # BE - Belgium
+# SG - Swiss-German

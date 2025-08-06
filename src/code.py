@@ -132,6 +132,9 @@ try:
     elif command == "BE":
         from keyboard_layouts.keyboard_layout_win_bene import KeyboardLayout
         layout = KeyboardLayout(kb)
+    elif command == "SG":
+        from keyboard_layouts.keyboard_layout_win_sg import KeyboardLayout
+        layout = KeyboardLayout(kb)
     file = io.open("/pico_usb.txt", "r")
     line = file.readline()
     while line != "":

@@ -28,14 +28,63 @@ led.value = True
 looping = False
 loop_pos = 0
 
+
+#Added aliases for more convenient use 
+def keyname(key):
+    aliases = {
+        "DOWN": "DOWN_ARROW",
+        "UP": "UP_ARROW",
+        "LEFT": "LEFT_ARROW",
+        "RIGHT": "RIGHT_ARROW",
+        "PAGEUP": "PAGE_UP",
+        "PAGEDOWN": "PAGE_DOWN",
+        "CAPSLOCK": "CAPS_LOCK",
+        "PRINTSCREEN": "PRINT_SCREEN",
+        "CTRL": "CONTROL",
+        "WIN":  "GUI",
+    }
+    return aliases.get(key, key)
+
+
+
+#TO DO : expand the macros and centralize them in a dict
+def macro_copy():
+    kb.send(Keycode.LEFT_CONTROL, Keycode.C)
+
+def macro_paste():
+    kb.send(Keycode.LEFT_CONTROL, Keycode.V)
+
+def macro_select_all():
+    kb.send(Keycode.LEFT_CONTROL, Keycode.Q)
+
+def macro_save():
+    kb.send(Keycode.LEFT_CONTROL, Keycode.S)
+
+MACROS = {
+    "COPY": macro_copy,
+    "PASTE": macro_paste,
+    "SELECTALL": macro_select_all,
+    "SAVE": macro_save,
+}
+
+
+
 def execute_command(function, command):
+
+    #check if a macro is called
+    macro_fn = MACROS.get(function)
+    if macro_fn:
+        macro_fn()
+        return
+    
     if function == "DELAY":
         if command.isdigit():
             time.sleep(float(command))
+    
     elif function == "PRESS":
         command = command.split(" + ")
         for c in range(0, len(command), 1):
-            command[c] = command[c].upper()
+            command[c] = keyname(command[c].upper()) #gestion des alias
         if len(command) <= 6:
             keys = [0] * len(command)
             for idx in range(0, len(command), 1):
@@ -46,7 +95,7 @@ def execute_command(function, command):
     elif function == "HOLD":
         command = command.split(" + ")
         for c in range(0, len(command), 1):
-            command[c] = command[c].upper()
+            command[c] = keyname(command[c].upper()) #gestion des alias
         if len(command) <= 6:
             keys = [0] * len(command)
             for idx in range(0, len(command), 1):
@@ -135,6 +184,9 @@ try:
     elif command == "SG":
         from keyboard_layouts.keyboard_layout_win_sg import KeyboardLayout
         layout = KeyboardLayout(kb)
+
+
+
     file = io.open("/pico_usb.txt", "r")
     line = file.readline()
     while line != "":

@@ -19,6 +19,15 @@
 ###  volume(x) - negative number is volume down by x, positive volume up by x.     ###
 ###              min volume = 0. max = 100. volume(mute) mutes the speakers.       ###
 ###  loop() - forever loops everything after the loop command. Use loop only once. ###
+###                                                                                ###
+###  Special actions :                                                             ###
+###                                                                                ###
+###  copy() - press ctrl + c                                                       ###
+###  paste() - press ctrl + v                                                      ###
+###  selectall() - press ctrl + Q                                                  ###
+###  save() - press ctrl + s                                                       ###
+###                                                                                ###
+###                                                                                ###
 ######################################################################################
 
 delay(1)

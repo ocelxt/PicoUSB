@@ -197,14 +197,14 @@ try:
         command = get_substr(line, line.find("("), line.rfind(")"))
         if looping == False:
             loop_pos += len(line)
+
+
         if function == "LOOP":
             looping = True
             if command.isdigit():
-                command = int(command)
-                iteration = command
-            else:
-                command = -1
                 iteration = int(command)
+            else:
+                iteration = -1
 
 
         execute_command(function, command)
@@ -226,6 +226,7 @@ try:
                     command = get_substr(line, line.find("("), line.rfind(")"))
                     execute_command(function, command)
                     line = file.readline()
+            looping = False
 
         elif iteration == -1:  
             file.seek(loop_pos)

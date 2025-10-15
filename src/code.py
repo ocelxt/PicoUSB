@@ -27,7 +27,8 @@ led.value = True
 
 looping = False
 loop_pos = 0
-
+loop_count = 0
+iteration = 0
 
 #Added aliases for more convenient use 
 def keyname(key):
@@ -135,6 +136,7 @@ def get_substr(string, start, end):
             command += string[idx]
     return command
 
+
 try:
     file = io.open("/layout.txt", "r")
     line = file.readline()
@@ -188,6 +190,7 @@ try:
 
 
     file = io.open("/pico_usb.txt", "r")
+
     line = file.readline()
     while line != "":
         function = line.split("(",1)[0].upper()
@@ -196,18 +199,42 @@ try:
             loop_pos += len(line)
         if function == "LOOP":
             looping = True
+            if command.isdigit():
+                command = int(command)
+                iteration = command
+            else:
+                command = -1
+                iteration = int(command)
+
+
         execute_command(function, command)
         line = file.readline()
+
     file.close()  
     file = io.open("/pico_usb.txt", "r")
+
+
+
     while looping == True:
-        file.seek(loop_pos)
-        line = file.readline()
-        while line != "":
-            function = line.split("(",1)[0].upper()
-            command = get_substr(line, line.find("("), line.rfind(")"))
-            execute_command(function, command)
+
+        if iteration > 0:
+            for _ in range(iteration):
+                file.seek(loop_pos)
+                line = file.readline()
+                while line != "":
+                    function = line.split("(",1)[0].upper()
+                    command = get_substr(line, line.find("("), line.rfind(")"))
+                    execute_command(function, command)
+                    line = file.readline()
+
+        elif iteration == -1:  
+            file.seek(loop_pos)
             line = file.readline()
+            while line != "":
+                function = line.split("(",1)[0].upper()
+                command = get_substr(line, line.find("("), line.rfind(")"))
+                execute_command(function, command)
+                line = file.readline()
 
     file.close()
 

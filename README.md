@@ -1,12 +1,34 @@
-# PicoUSB
+# PicoUSB - Extended capabilities
 
 Repository for PicoUSB - RP2040 based, affordable, easy to use and easy to program Bad USB
+
+Welcome to my fork of the PicoUSB, an RP2040 based Bad USB.
+
+## Extensions
+
+Here are some extensions I have added : 
+
+-Use of quick action (i.e : copy() will press ctrl+s instead of typing write(control + c))
+
+-Use aliases for a more natural pseudo-code payload writing (i.e up,left,right,down instead of up_arrow,left_arrow,right_arrow,down_arrow)
+
+-Improved the loop feature added by @stefanb. Now you can choose the number of iterations for the loop or opt for an infinite loop
+
+
+## Future Improvement 
+
+-I want to add the ability to read PowerShell files from PicoUSB's memory. @Pittermanifique already created something similar for .bat files, and I want to build upon that.
+
+
+
+## Content
 
 - [PicoUSB](#picousb)
   - [Setup](#setup)
   - [Operation](#operation)
   - [Important Files](#important-files)
   - [Development](#development)
+  
 
 ![PicoUSB-3](https://github.com/TomBrlek/PicoUSB/assets/137766608/e64d61c2-e8db-4887-aa5e-6456fb3bd157)
 
@@ -59,10 +81,6 @@ That is it! Modify `pico_usb.txt` to change the functionality. See below to know
 - scroll(x) - scrolls the mouse. Negative number scrolls down, possitive scroll up
 - volume(x) - Modifies the system volume. Negative numbers move the volume slider down by x, possitive move it up by x. min volume = 0. max = 100. `volume(mute)` mutes the speakers.
 - loop() - loops everything before this command
-- save() - quick use of ctrl+s
-- copy() - quick use of ctrl+c
-- paste() - quick use of ctrl+v
-- selectall() - quick use of ctrl+q
 
 ## Development
 

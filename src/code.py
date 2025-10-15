@@ -218,7 +218,7 @@ try:
     while looping == True:
 
         if iteration > 0:
-            for _ in range(iteration):
+            for _ in range(iteration -1):
                 file.seek(loop_pos)
                 line = file.readline()
                 while line != "":
